@@ -13,6 +13,7 @@
 			<th scope="col">label</th>
 			<th scope="col"></th>
 			<th scope="col"></th>
+			<th scope="col"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,6 +27,9 @@
 				</td>
 				<td>
 					<a href="/admin/structures/form?id={structure.id}">upravit</a>
+				</td>
+				<td>
+					<a href="/admin/structures/products/{structure.id}">produkty</a>
 				</td>
 				<td>
 					<a href="/admin/structures/attendance?sid={structure.id}">prezenční systém</a>

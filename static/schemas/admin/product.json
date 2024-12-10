@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "title": "Produkt",
+    "properties": {
+        "id": {
+            "type": "integer",
+            "format": "number",
+            "readonly": true
+        },
+        "id_structure": {
+            "type": "integer",
+            "format": "number",
+            "readonly": true
+        },
+        "label": {
+            "type": "string"
+        },
+        "price": {
+            "type": "integer",
+            "format": "number"
+        }
+    },
+    "required": [
+        "id",
+        "id_structure",
+        "label",
+        "price"
+    ]
+}
