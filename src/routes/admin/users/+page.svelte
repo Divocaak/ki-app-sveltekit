@@ -45,7 +45,7 @@
 					<a href="/admin/users/status?uid={user.id}&sid={user.statusId}">status</a>
 				</td>
 				<td>
-					<a href="/admin/users/structures?uid={user.id}">budovy</a>
+					<a href="/admin/users/structures?uid={user.id}">přiřazení k budovám</a>
 				</td>
 			</tr>
 		{/each}

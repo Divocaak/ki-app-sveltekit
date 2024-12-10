@@ -20,7 +20,6 @@
 		});
 
 		const result = await response.json();
-		console.log(result);
 		alert(result.message);
 	}
 </script>

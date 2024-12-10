@@ -2,20 +2,16 @@
 	// @ts-nocheck
 	export let data = null;
 
-	let links = data.userStructures.reduce((acc, link) => {
+	const links = data.userStructures.reduce((acc, link) => {
 		acc[link.id_structure] = link.active;
 		return acc;
 	}, {});
+	const updates = [];
 
 	async function handleSubmit(event) {
 		event.preventDefault();
 
 		const form = event.target;
-		const formData = new FormData(event.target);
-		const updates = [];
-		for (const [key, value] of formData.entries()) {
-			if (key !== 'uid') updates.push({ structureId: Number(key), active: value === 'on' });
-		}
 
 		const response = await fetch(`/api/userStructures/set`, {
 			method: 'POST',
@@ -27,6 +23,10 @@
 
 		const result = await response.json();
 		alert(result.message);
+	}
+
+	function handleChange(event) {
+		updates.push({ structureId: Number(event.target.name), active: event.target.checked });
 	}
 </script>
 
@@ -47,7 +47,12 @@
 				<tr>
 					<td>{structure.label}</td>
 					<td>
-						<input type="checkbox" name={structure.id} checked={links[structure.id] || false} />
+						<input
+							type="checkbox"
+							name={structure.id}
+							checked={links[structure.id] || false}
+							on:change={handleChange}
+						/>
 					</td>
 				</tr>
 			{/each}
