@@ -14,6 +14,7 @@
 			<th scope="col">label</th>
 			<th scope="col">price</th>
 			<th scope="col"></th>
+			<th scope="col"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,6 +31,9 @@
 				</td>
 				<td>
 					<a href="/admin/structures/products/{$page.params.sid}/form?id={product.id}">upravit</a>
+				</td>
+				<td>
+					<a href="/admin/structures/products/{$page.params.sid}/qr?id={product.id}">qr kód</a>
 				</td>
 			</tr>
 		{/each}

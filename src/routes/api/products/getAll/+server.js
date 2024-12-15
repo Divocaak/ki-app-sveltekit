@@ -1,8 +1,8 @@
 // @ts-nocheck
 import { pool } from "$lib/db/mysql.ts";
 
-export async function GET() {
-    const [rows, fields] = await pool.promise().query('SELECT u.id, u.email, u.phone, u.f_name, u.l_name, s.id AS statusId, s.label AS status FROM user_status us INNER JOIN status s ON us.id_status=s.id INNER JOIN user u ON us.id_user=u.id;');
+export async function GET({ request, params, url }) {
+    const [rows, fields] = await pool.promise().query('SELECT id, label, price FROM product WHERE id_structure=?;', url.searchParams.get("sid"));
 
     return new Response(JSON.stringify(rows));
 }

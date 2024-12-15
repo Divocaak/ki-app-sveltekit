@@ -4,11 +4,9 @@ import { pool } from "$lib/db/mysql.ts";
 export async function POST({ request }) {
 
     const data = await request.json();
-    await pool.promise().query("UPDATE user SET email=?, phone=?, f_name=?, l_name=? WHERE id=?;", [
-        data.email,
-        parseInt(data.phone),
-        data.f_name,
-        data.l_name,
+    await pool.promise().query("UPDATE product SET label=?, price=? WHERE id=?;", [
+        data.label,
+        data.price,
         data.id
     ]);
 
