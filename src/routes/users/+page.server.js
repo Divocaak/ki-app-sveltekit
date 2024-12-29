@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const load = async ({ params, fetch }) => {
 
     const result = await fetch("/api/users/getAll");
