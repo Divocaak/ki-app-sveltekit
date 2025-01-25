@@ -1,5 +1,5 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
 	let email = '';
 	let password = '';
@@ -24,14 +24,16 @@
 
 <form on:submit={handleSubmit}>
 	<label for="email">email</label>
-	<input id="email" bind:value={email} required />
+	<input id="email" bind:value={email} required /><br />
 
 	<label for="password">Password</label>
-	<input id="password" type="password" bind:value={password} required />
+	<input id="password" type="password" bind:value={password} required /><br />
 
 	{#if error}
 		<p style="color: red;">{error}</p>
+		<br />
 	{/if}
 
-	<button type="submit">Login</button>
+	<button type="submit">Login</button><br />
+	<a href="/">back to homepage</a><br />
 </form>

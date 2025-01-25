@@ -4,19 +4,21 @@ export async function handle({ event, resolve }) {
     const session = event.cookies.get('session');
 
     if (session) {
-        const user = JSON.parse(session);
-        event.locals.user = user;
+        event.locals.user = JSON.parse(session);
     } else {
         event.locals.user = null;
     }
 
-    // Define protected routes
-    const protectedRoutes = ['/structures', '/users']; // Add all routes that need authentication
-    const isProtectedRoute = protectedRoutes.some((path) => event.url.pathname.startsWith(path));
+    const { pathname } = event.url;
 
-    // Redirect if accessing a protected route without being authenticated
-    if (isProtectedRoute && !event.locals.user) {
+    // Redirect unauthenticated users accessing protected routes
+    if ((pathname.startsWith('/(protected)') || pathname.startsWith('/admin')) && !event.locals.user) {
         throw redirect(302, '/login');
+    }
+
+    // Restrict access to /admin for non-admins
+    if (pathname.startsWith('/admin') && event.locals.user?.role !== 'admin') {
+        throw redirect(302, '/403'); // Redirect to Forbidden page
     }
 
     return resolve(event);
