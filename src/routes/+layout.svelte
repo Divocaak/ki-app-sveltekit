@@ -1,5 +1,6 @@
 <slot />
 
+<!-- TODO move to admin layout -->
 <style>
 	:global(table) {
 		border-collapse: collapse;

@@ -24,7 +24,7 @@
 
 <form on:submit={handleSubmit}>
 	<label for="email">email</label>
-	<input id="email" bind:value={email} required /><br />
+	<input id="email" type="email" bind:value={email} required /><br />
 
 	<label for="password">Password</label>
 	<input id="password" type="password" bind:value={password} required /><br />
@@ -35,5 +35,6 @@
 	{/if}
 
 	<button type="submit">Login</button><br />
+	<a href="/register">register</a><br />
 	<a href="/">back to homepage</a><br />
 </form>

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { pool } from "$lib/db/mysql.ts";
 
+/* NOTE delete; */
 export async function POST({ request }) {
     try {
         const data = await request.json();
