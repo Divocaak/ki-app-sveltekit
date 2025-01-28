@@ -19,6 +19,7 @@ export async function handle({ event, resolve }) {
     // Restrict access to /admin for non-admins
     /* TODO error pages */
     /* URGENT based on priviliegies from db */
+    /* BUG check user status */
     if (pathname.startsWith('/admin') && event.locals.user?.role !== 'admin') {
         throw redirect(302, '/403'); // Redirect to Forbidden page
     }
