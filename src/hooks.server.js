@@ -11,18 +11,19 @@ export async function handle({ event, resolve }) {
 
     const { pathname } = event.url;
 
-    // Redirect unauthenticated users accessing protected routes
-    if ((pathname.startsWith('/(protected)') || pathname.startsWith('/admin')) && !event.locals.user) {
-        throw redirect(302, '/login');
-    }
+    if (pathname.startsWith('/(protected)') && !event.locals.user) throw redirect(302, '/login');
+    
+    /* BUG check user status */
 
     // Restrict access to /admin for non-admins
-    /* TODO error pages */
-    /* URGENT based on priviliegies from db */
-    /* BUG check user status */
-    if (pathname.startsWith('/admin') && event.locals.user?.role !== 'admin') {
+    /* REFACTOR user class */
+    const adminPrivilegeId = 1;
+    const isAdmin = event.locals.user?.privileges.some(privilege => privilege.id === adminPrivilegeId);
+    if (pathname.startsWith('/admin') && !isAdmin) {
         throw redirect(302, '/403'); // Redirect to Forbidden page
     }
+
+    /* TODO error pages */
 
     return resolve(event);
 }

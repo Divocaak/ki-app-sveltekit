@@ -21,6 +21,7 @@ export async function POST({ request, cookies }) {
         return json({ message: 'invalid credentials' }, { status: 401 });
     }
 
+    /* REFACTOR create user class */
     const user = {
         id: rows[0].id,
         email: rows[0].email,
@@ -35,15 +36,11 @@ export async function POST({ request, cookies }) {
 
     const [prows] = await pool.query(`
         SELECT p.id, p.label FROM user_privilege up
-        LEFT JOIN privilege p ON up.id_privilege=p.id
+        INNER JOIN privilege p ON up.id_privilege=p.id
         WHERE up.id_user = ?;`,
         [user.id]);
-    console.log(prows);
     user.privileges = prows;
-    console.log(user);
 
-    /* URGENT get user privilegies */
-    /* REFACTOR create user class */
     cookies.set('session', JSON.stringify(user), {
         httpOnly: true,
         secure: true,

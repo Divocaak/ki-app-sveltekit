@@ -6,7 +6,10 @@ export async function load({ locals }) {
         throw redirect(302, '/login'); // Redirect if not logged in
     }
 
-    if (locals.user.role !== 'admin') {
+    /* REFACTOR user class */
+    const adminPrivilegeId = 1;
+    const isAdmin = locals.user?.privileges.some(privilege => privilege.id === adminPrivilegeId);
+    if (!isAdmin) {
         throw redirect(302, '/403'); // Redirect if not an admin
     }
 
