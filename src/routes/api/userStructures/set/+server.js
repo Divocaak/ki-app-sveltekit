@@ -3,7 +3,7 @@ import { pool } from "$lib/db/mysql.ts";
 
 export async function POST({ params, request }) {
     const data = await request.json();
-    const connection = await pool.promise().getConnection();
+    const connection = await pool.getConnection();
     try {
         await connection.beginTransaction();
 

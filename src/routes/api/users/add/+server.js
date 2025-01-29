@@ -6,7 +6,7 @@ export async function POST({ request }) {
     try {
         const data = await request.json();
 
-        const [userResult] = await pool.promise().query(
+        const [userResult] = await pool.query(
             "INSERT INTO user (email, phone, f_name, l_name) VALUES (?, ?, ?, ?);",
             [data.email, parseInt(data.phone), data.f_name, data.l_name]
         );
@@ -14,7 +14,7 @@ export async function POST({ request }) {
         const userId = userResult.insertId;
         // id for neutral status
         const neutralStatusId = 1;
-        const [statusResult] = await pool.promise().query(
+        const [statusResult] = await pool.query(
             "INSERT INTO user_status (id_user, id_status) VALUES (?, ?);",
             [userId, neutralStatusId]
         );

@@ -4,7 +4,7 @@ import { pool } from "$lib/db/mysql.ts";
 export async function POST({ request }) {
 
     const data = await request.json();
-    const [sql, _] = await pool.promise().query("INSERT INTO product (id_structure, label, price) VALUES (?, ?, ?);", [
+    const [sql, _] = await pool.query("INSERT INTO product (id_structure, label, price) VALUES (?, ?, ?);", [
         data.id_structure,
         data.label,
         data.price

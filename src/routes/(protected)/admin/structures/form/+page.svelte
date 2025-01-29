@@ -4,7 +4,7 @@
 	export let data = null;
 </script>
 
-<a href="/structures">zpět</a><br />
+<a href="/admin/structures">zpět</a><br />
 
 <AdminForm
 	schemaPath="/schemas/admin/structure.json"

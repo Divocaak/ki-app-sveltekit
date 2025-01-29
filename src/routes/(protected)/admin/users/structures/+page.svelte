@@ -30,7 +30,7 @@
 	}
 </script>
 
-<a href="/users">zpět</a><br />
+<a href="/admin/users">zpět</a><br />
 
 <h1>přiřazení k budovám</h1>
 <form on:submit={handleSubmit}>

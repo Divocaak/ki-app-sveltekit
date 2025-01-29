@@ -3,8 +3,8 @@
 </script>
 
 <h1>uživatelé</h1>
-<a href="/">zpět</a><br />
-<a href="/users/form">přidat</a>
+<a href="/admin">zpět</a><br />
+<a href="/admin/users/form">přidat</a>
 
 <table>
 	<thead>
@@ -39,13 +39,13 @@
 					<i>{user.status}</i>
 				</td>
 				<td>
-					<a href="/users/form?id={user.id}">upravit</a>
+					<a href="/admin/users/form?id={user.id}">upravit</a>
 				</td>
 				<td>
-					<a href="/users/status?uid={user.id}&sid={user.statusId}">status</a>
+					<a href="/admin/users/status?uid={user.id}&sid={user.statusId}">status</a>
 				</td>
 				<td>
-					<a href="/users/structures?uid={user.id}">přiřazení k budovám</a>
+					<a href="/admin/users/structures?uid={user.id}">přiřazení k budovám</a>
 				</td>
 			</tr>
 		{/each}
