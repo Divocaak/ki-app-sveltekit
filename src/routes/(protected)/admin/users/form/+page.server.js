@@ -7,6 +7,6 @@ export const load = async ({ url, params, fetch }) => {
     const data = await result.json();
     return { user: data };
   }
-  
+
   return;
 }

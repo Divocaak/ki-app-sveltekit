@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { User } from '$lib/classes/user';
 import { redirect } from '@sveltejs/kit';
 export async function handle({ event, resolve }) {
     const session = event.cookies.get('session');
@@ -9,27 +10,17 @@ export async function handle({ event, resolve }) {
         event.locals.user = null;
     }
 
-    const { pathname } = event.url;
-
+    const pathname = event.route.id;
     if (pathname.startsWith('/(auth)')) return resolve(event);
-    if (pathname.startsWith('/(protected)') && !event.locals.user) throw redirect(302, '/login');
+    if (pathname.startsWith('/(protected)')) {
+        if (!event.locals.user) throw redirect(302, '/login');
+        const user = User.fromJSON(event.locals.user);
 
-    /* REFACTOR user class */
-    const neutralStatusId = 1;
-    const approvedStatusId = 2;
-    const bannedStatusId = 3;
-    const deletedStatusId = 4;
-    const userStatusId = event.locals.user?.status.id;
-    console.log(userStatusId);
-    /* NOTE rewrite and pass message what went wrong */
-    if (userStatusId == neutralStatusId) throw redirect(302, "/403");
-    if (userStatusId == bannedStatusId || userStatusId == deletedStatusId) throw redirect(302, "/403");
+        if (user.isNeutral()) throw redirect(302, "/401"); // Unathorized
+        if (user.isBanned() || user.isDeleted()) throw redirect(302, "/403"); // Forbidden
 
-    // Restrict access to /admin for non-admins
-    const adminPrivilegeId = 1;
-    const isAdmin = event.locals.user?.privileges.some(privilege => privilege.id === adminPrivilegeId);
-    if (pathname.startsWith('/admin') && !isAdmin) {
-        throw redirect(302, '/403'); // Redirect to Forbidden page
+        // Restrict access to /admin for non-admins
+        if (pathname.includes('/(admin)') && !user.isAdmin()) throw redirect(302, '/403'); // Redirect to Forbidden page
     }
 
     return resolve(event);

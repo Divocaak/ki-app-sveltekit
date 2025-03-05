@@ -4,8 +4,7 @@
 	import { page } from '$app/stores';
 
 	export let data;
-    // TODO product qr api endpoint
-	// TODO method POST
+    // TODO product qr api endpoint, method POST
 	const qrData = `${$page.url.origin}/api/transaction/add/pid=${data.id}&uid=`;
 	
     let downloadUrl = '';

@@ -2,6 +2,8 @@
 import { pool } from "$lib/db/mysql.ts";
 import { validatePassword } from '$lib/auth';
 import { json } from '@sveltejs/kit';
+import { User } from "$lib/classes/user.js";
+import { Status } from "$lib/classes/status.js";
 
 export async function POST({ request, cookies }) {
     const { email, password } = await request.json();
@@ -21,25 +23,24 @@ export async function POST({ request, cookies }) {
         return json({ message: 'invalid credentials' }, { status: 401 });
     }
 
-    /* REFACTOR create user class */
-    const user = {
+    const user = new User({
         id: rows[0].id,
         email: rows[0].email,
-        fullname: `${rows[0].l_name} ${rows[0].f_name}`,
+        fName: rows[0].f_name,
+        lName: rows[0].l_name,
         phone: rows[0].phone,
-        status: {
+        status: new Status({
             id: rows[0].statusId,
             label: rows[0].label
-        },
-        privileges: []
-    };
+        })
+    });
 
     const [prows] = await pool.query(`
         SELECT p.id, p.label FROM user_privilege up
         INNER JOIN privilege p ON up.id_privilege=p.id
         WHERE up.id_user = ?;`,
         [user.id]);
-    user.privileges = prows;
+    user.setPrivileges(prows)
 
     cookies.set('session', JSON.stringify(user), {
         httpOnly: true,

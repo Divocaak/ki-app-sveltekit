@@ -4,7 +4,6 @@
 
 <h1>uživatelé</h1>
 <a href="/admin">zpět</a><br />
-<a href="/admin/users/form">přidat</a>
 
 <table>
 	<thead>

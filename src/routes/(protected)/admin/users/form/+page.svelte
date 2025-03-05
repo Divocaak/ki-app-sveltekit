@@ -8,6 +8,6 @@
 
 <AdminForm
 	schemaPath="/schemas/admin/user.json"
-	endpoint="/api/users/{data.user ? 'update' : 'add'}"
+	endpoint="/api/users/update"
 	initialData={data.user}
 />
