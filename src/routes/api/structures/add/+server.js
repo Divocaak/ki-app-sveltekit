@@ -3,9 +3,8 @@ import { pool } from "$lib/db/mysql.ts";
 
 export async function POST({ request }) {
 
-    // TODO postal number
     const data = await request.json();
-    const [sql, _] = await pool.query("INSERT INTO structure (label, addr_label, addr_street, addr_town, addr_country_code) VALUES (?, ?, ?, ?, ?);", [
+    const [sql, _] = await pool.query("INSERT INTO structure (label, addr_label, addr_street, addr_town, addr_postal, addr_country_code) VALUES (?, ?, ?, ?, ?, ?);", [
         data.label,
         data.addr_label,
         data.addr_street,
