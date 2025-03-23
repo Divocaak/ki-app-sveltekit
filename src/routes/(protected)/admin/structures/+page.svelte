@@ -2,7 +2,7 @@
 	export let data;
 </script>
 
-<h1>budovy</h1>
+<h2>budovy</h2>
 <a href="/admin">zpět</a><br />
 <a href="/admin/structures/form">přidat novou</a>
 

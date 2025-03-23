@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { Privilege } from "$lib/classes/privilege";
 import { Status } from "$lib/classes/status";
-import { PUBLIC_PRIVILEGE_ID_ADMIN, PUBLIC_STATUS_ID_APPROVED, PUBLIC_STATUS_ID_BANNED, PUBLIC_STATUS_ID_DELETED, PUBLIC_STATUS_ID_NEUTRAL } from "$env/static/public";
+import { PUBLIC_PRIVILEGE_ID_ADMIN, PUBLIC_PRIVILEGE_ID_BARTENDER, PUBLIC_STATUS_ID_APPROVED, PUBLIC_STATUS_ID_BANNED, PUBLIC_STATUS_ID_DELETED, PUBLIC_STATUS_ID_NEUTRAL } from "$env/static/public";
 
 export class User {
 
@@ -37,6 +37,7 @@ export class User {
     static createPrivileges(json) { return json.map(privilege => new Privilege({ id: privilege.id, label: privilege.label })); }
 
     isAdmin() { return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_ADMIN); }
+    isBartender() {return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_BARTENDER);}
     #checkForPrivilege(privilegeId) { return this.privileges.some((privilege) => privilege.id === parseInt(privilegeId)); }
 
     isNeutral() { return this.#checkForStatus(PUBLIC_STATUS_ID_NEUTRAL); }

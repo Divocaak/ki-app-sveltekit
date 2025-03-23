@@ -8,7 +8,7 @@
 	initialData.id_structure = $page.params.sid;
 </script>
 
-<h1>produkty</h1>
+<h2>produkty</h2>
 <a href="/admin/structures/products/{$page.params.sid}">zpět</a><br />
 
 <AdminForm

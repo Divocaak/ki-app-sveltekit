@@ -4,14 +4,13 @@
 	import { page } from '$app/stores';
 
 	export let data;
-    // TODO product qr api endpoint, method POST
-	const qrData = `${$page.url.origin}/api/transaction/add/pid=${data.id}&uid=`;
+	const qrData = `/api/qr/transaction?pid=${data.id}`;
 	
     let downloadUrl = '';
 	const handleInDownloadUrlGenerated = (generated = '') => (downloadUrl = generated);
 </script>
 
-<h1>qr kód pro vytvoření transakce</h1>
+<h2>qr kód pro vytvoření transakce</h2>
 <a href="/admin/structures/products/{$page.params.sid}">zpět</a><br />
 
 <div style="width: 10%; height: 10%;">

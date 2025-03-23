@@ -2,9 +2,10 @@
 	export let data;
 </script>
 
-<h1>uživatelé</h1>
+<h2>uživatelé</h2>
 <a href="/admin">zpět</a><br />
 
+<!-- TODO privilege assignement -->
 <table>
 	<thead>
 		<tr>
@@ -13,6 +14,7 @@
 			<th scope="col">email</th>
 			<th scope="col">phone</th>
 			<th scope="col">status</th>
+			<th scope="col"></th>
 			<th scope="col"></th>
 			<th scope="col"></th>
 			<th scope="col"></th>
@@ -42,6 +44,9 @@
 				</td>
 				<td>
 					<a href="/admin/users/status?uid={user.id}&sid={user.statusId}">status</a>
+				</td>
+				<td>
+					<a href="/admin/users/privileges?uid={user.id}&sid={user.statusId}">práva</a>
 				</td>
 				<td>
 					<a href="/admin/users/structures?uid={user.id}">přiřazení k budovám</a>

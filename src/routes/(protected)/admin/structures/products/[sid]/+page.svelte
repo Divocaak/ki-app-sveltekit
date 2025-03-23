@@ -3,7 +3,7 @@
 	export let data;
 </script>
 
-<h1>produkty</h1>
+<h2>produkty</h2>
 <a href="/admin/structures">zpět</a><br />
 <a href="/admin/structures/products/{$page.params.sid}/form">přidat nový</a>
 

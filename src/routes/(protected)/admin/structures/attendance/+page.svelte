@@ -13,10 +13,10 @@
 	const handleOutDownloadUrlGenerated = (generated = '') => (outDownloadUrl = generated);
 </script>
 
-<h1>docházkový systém v rámci budovy</h1>
+<h2>docházkový systém v rámci budovy</h2>
 <a href="/admin/structures">zpět</a><br />
 
-<h2>příchozí qr kód</h2>
+<h3>příchozí qr kód</h3>
 <div style="width: 10%; height: 10%;">
 	<QRCode
 		data="{qrDataPrefix}in/{data.sid}"
@@ -31,7 +31,7 @@
 	<a href={inDownloadUrl} download="vstupni_qr.svg" target="_blank">uložit (.svg)</a>
 {/if}
 
-<h2>odchozí qr kód</h2>
+<h3>odchozí qr kód</h3>
 <div style="width: 10%; height: 10%;">
 	<QRCode
 		data="{qrDataPrefix}out/{data.sid}"

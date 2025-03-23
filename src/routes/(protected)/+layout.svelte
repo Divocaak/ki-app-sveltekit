@@ -6,14 +6,31 @@
 	const user = User.fromJSON(data.user);
 </script>
 
+<h1>ki-app protected</h1>
 <p>
 	{@html user.getInfoString()}
 	<a href="/logout">logout</a>
 	{#if user.isAdmin()}<a href="/admin">admin</a>{/if}
 	<br />
-	({#each user.privileges as privilege}
+	(privileges: {#each user.privileges as privilege}
 		{privilege.id}: {privilege.label},&nbsp;
 	{/each})
 </p>
 
 <slot />
+
+<style>
+	:global(table) {
+		border-collapse: collapse;
+		margin-top: 20px;
+	}
+
+	:global(td) {
+		border: 1.5px solid black;
+		padding: 5px;
+	}
+
+	:global(tr:nth-child(even)) {
+		background-color: #b7b7b7;
+	}
+</style>

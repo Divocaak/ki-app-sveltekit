@@ -26,7 +26,7 @@
 
 <a href="/admin/users">zpět</a><br />
 
-<h1>změnit status</h1>
+<h2>změnit status</h2>
 <form on:submit={handleSubmit}>
 	<input readonly id="uid" name="uid" value={data.uid} style="display:none" />
 	<select id="sid" name="sid">

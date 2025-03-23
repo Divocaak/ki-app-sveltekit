@@ -32,7 +32,7 @@
 
 <a href="/admin/users">zpět</a><br />
 
-<h1>přiřazení k budovám</h1>
+<h2>přiřazení k budovám</h2>
 <form on:submit={handleSubmit}>
 	<input readonly id="uid" name="uid" value={data.uid} style="display:none" />
 	<table>
