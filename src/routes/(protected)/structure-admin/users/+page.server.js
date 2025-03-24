@@ -1,11 +1,18 @@
 // @ts-nocheck
-export const load = async ({ params, fetch }) => {
+export const load = async ({ url, params, fetch }) => {
 
-    /* URGNET only assigned */
-    const result = await fetch("/api/users/getAll");
-    const data = await result.json();
+    const sid = url.searchParams.get('sid');
+    const usersResponse = await fetch("/api/structures/getUsers", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ sid: sid })
+    });
+    const usersResult = await usersResponse.json();
 
     return {
-        users: data
+        sid: sid,
+        users: usersResult
     }
 }

@@ -14,7 +14,7 @@
 </script>
 
 <h2>docházkový systém v rámci budovy</h2>
-<a href="/sysadmin/structures">zpět</a><br />
+<a href="/structure-admin">zpět</a><br />
 
 <h3>příchozí qr kód</h3>
 <div style="width: 10%; height: 10%;">

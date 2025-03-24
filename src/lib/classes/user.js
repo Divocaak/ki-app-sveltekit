@@ -38,13 +38,16 @@ export class User {
 
     isSysAdmin() { return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_SYS_ADMIN); }
     isStructureAdmin() { return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_STRUCTURE_ADMIN); }
-    isBartender() {return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_BARTENDER);}
+    isBartender() { return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_BARTENDER); }
     #checkForPrivilege(privilegeId) { return this.privileges.some((privilege) => privilege.id === parseInt(privilegeId)); }
-    
-    /* URGENT get sids where privilege */
-    getStructuresWhereBartender() {};
-    getStructuresWhereStructureAdmin() {};
-    #getStructuresWherePrivileged(privilegeId){}
+
+    getStructuresWhereStructureAdmin() { return this.#getStructuresWherePrivileged(PUBLIC_PRIVILEGE_ID_STRUCTURE_ADMIN)};
+    getStructuresWhereBartender() { return this.#getStructuresWherePrivileged(PUBLIC_PRIVILEGE_ID_BARTENDER)};
+    #getStructuresWherePrivileged(privilegeId) {
+        return this.privileges
+            .filter((privilege) => privilege.privilegeId === parseInt(privilegeId))
+            .map(({ structureId, structureLabel }) => ({ structureId, structureLabel }));
+    }
 
     isNeutral() { return this.#checkForStatus(PUBLIC_STATUS_ID_NEUTRAL); }
     isApproved() { return this.#checkForStatus(PUBLIC_STATUS_ID_APPROVED); }

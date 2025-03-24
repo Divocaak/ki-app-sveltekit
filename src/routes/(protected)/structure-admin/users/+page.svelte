@@ -3,9 +3,8 @@
 </script>
 
 <h2>uživatelé</h2>
-<a href="/sysadmin">zpět</a><br />
+<a href="/structure-admin">zpět</a><br />
 
-<!-- TODO privilege assignement for this one structure i manage -->
 <table>
 	<thead>
 		<tr>
@@ -33,7 +32,7 @@
 					<a href="tel:{user.phone}">{user.phone}</a>
 				</td>
 				<td>
-					<a href="/sysadmin/users/privileges?uid={user.id}&sid={user.statusId}">práva</a>
+					<a href="/structure-admin/users/privileges?uid={user.id}&sid={data.sid}">práva</a>
 				</td>
 			</tr>
 		{/each}

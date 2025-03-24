@@ -36,10 +36,12 @@ export async function POST({ request, cookies }) {
     });
 
     const [prows] = await pool.query(`
-        SELECT p.id, p.label, s.id AS structureId, s.label AS structureLabel FROM user_privilege up
+        SELECT p.id, p.label, s.id AS structureId, s.label AS structureLabel
+        FROM user_privilege up
         INNER JOIN privilege p ON up.id_privilege=p.id
         LEFT JOIN structure s ON up.id_structure=s.id
-        WHERE up.id_user = ?;`,
+        WHERE up.id_user = ?
+        AND up.active IS TRUE;`,
         [user.id]);
     user.setPrivileges(prows)
 

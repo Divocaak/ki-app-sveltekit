@@ -2,9 +2,8 @@
 	export let data;
 </script>
 
-<h2>budovy</h2>
-<a href="/sysadmin">zpět</a><br />
-<a href="/sysadmin/structures/form">přidat novou</a>
+<h2>ki-app structure-admin</h2>
+<a href="/home">zpět</a><br />
 
 <table>
 	<thead>
@@ -26,13 +25,13 @@
 					<b>{structure.label}</b>
 				</td>
 				<td>
-					<a href="/sysadmin/structures/form?id={structure.id}">upravit</a>
+					<a href="/structure-admin/products/{structure.id}">produkty</a>
 				</td>
 				<td>
-					<a href="/sysadmin/structures/products/{structure.id}">produkty</a>
+					<a href="/structure-admin/attendance?sid={structure.id}">prezenční systém</a>
 				</td>
 				<td>
-					<a href="/sysadmin/structures/attendance?sid={structure.id}">prezenční systém</a>
+					<a href="/structure-admin/users?sid={structure.id}">uživatelé</a>
 				</td>
 			</tr>
 		{/each}

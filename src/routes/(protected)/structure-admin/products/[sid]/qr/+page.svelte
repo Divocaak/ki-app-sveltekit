@@ -11,7 +11,7 @@
 </script>
 
 <h2>qr kód pro vytvoření transakce</h2>
-<a href="/sysadmin/structures/products/{$page.params.sid}">zpět</a><br />
+<a href="/structure-admin/products/{$page.params.sid}">zpět</a><br />
 
 <div style="width: 10%; height: 10%;">
 	<QRCode

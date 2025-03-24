@@ -16,7 +16,7 @@ export async function handle({ event, resolve }) {
     const pathname = event.route.id;
     if (pathname.startsWith('/(auth)')) return resolve(event);
 
-    /* BUG after login return on desired path */
+    /* NOTE after login return on desired path */
     if (pathname.startsWith('/(protected)')) {
         if (!event.locals.user) {
             desired = event.route.id;
@@ -31,8 +31,8 @@ export async function handle({ event, resolve }) {
 
         // Restrict access to /sysadmin for non-sysadmins
         if (pathname.includes('/sysadmin') && !user.isSysAdmin()) throw redirect(302, '/403'); // Redirect to Forbidden page
-        /* TODO hook structure-admin */
-        /* TODO hook bartender */
+        if (pathname.includes('/structure-admin') && !user.isStructureAdmin()) throw redirect(302, '/403'); // Redirect to Forbidden page
+        if (pathname.includes('/bartender') && !user.isBartender()) throw redirect(302, '/403'); // Redirect to Forbidden page
     }
 
     return resolve(event);

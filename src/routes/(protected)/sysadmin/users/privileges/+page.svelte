@@ -55,7 +55,7 @@
 
 <a href="/sysadmin/users">zpět</a><br />
 
-<h2>přiřazení k budovám</h2>
+<h2>práva v rámci budov</h2>
 <form on:submit={handleSubmit}>
 	<input readonly id="uid" name="uid" value={data.uid} style="display:none" />
 	<table>

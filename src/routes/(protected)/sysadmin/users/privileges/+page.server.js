@@ -2,7 +2,7 @@
 export const load = async ({ url, params, fetch }) => {
 
   const uid = url.searchParams.get('uid');
-  const structuresResponse = await fetch("/api/structures/getUsers", {
+  const structuresResponse = await fetch("/api/users/getStructures", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

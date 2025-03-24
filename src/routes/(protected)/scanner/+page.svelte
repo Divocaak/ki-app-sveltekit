@@ -12,8 +12,7 @@
 	let html5Qrcode;
 	onMount(() => {
 		html5Qrcode = new Html5Qrcode('reader');
-		// NOTE uncomment when done
-		//start();
+		start();
 	});
 
 	function start() {
