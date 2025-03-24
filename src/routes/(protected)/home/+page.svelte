@@ -10,4 +10,7 @@
 <a href="/">back to public</a><br />
 <br />
 <a href="/scanner">qr scanner</a><br />
-{#if user.isBartender()}<a href="/bartender">bartender</a>{/if}
+<br>
+{#if user.isSysAdmin()}<a href="/sysadmin">sysadmin</a><br />{/if}
+{#if user.isStructureAdmin()}<a href="/structure-admin">structure admin</a><br />{/if}
+{#if user.isBartender()}<a href="/bartender">bartender</a><br />{/if}

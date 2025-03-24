@@ -10,10 +10,9 @@
 <p>
 	{@html user.getInfoString()}
 	<a href="/logout">logout</a>
-	{#if user.isAdmin()}<a href="/admin">admin</a>{/if}
 	<br />
 	(privileges: {#each user.privileges as privilege}
-		{privilege.id}: {privilege.label},&nbsp;
+		{privilege.id}: <b>{privilege.label}</b> {#if privilege.structureLabel}(<i>{privilege.structureLabel}</i>){/if},&nbsp;
 	{/each})
 </p>
 

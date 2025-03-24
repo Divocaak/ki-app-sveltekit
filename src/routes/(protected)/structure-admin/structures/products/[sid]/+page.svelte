@@ -4,8 +4,8 @@
 </script>
 
 <h2>produkty</h2>
-<a href="/admin/structures">zpět</a><br />
-<a href="/admin/structures/products/{$page.params.sid}/form">přidat nový</a>
+<a href="/sysadmin/structures">zpět</a><br />
+<a href="/sysadmin/structures/products/{$page.params.sid}/form">přidat nový</a>
 
 <table>
 	<thead>
@@ -30,10 +30,10 @@
 					{product.price} Kč
 				</td>
 				<td>
-					<a href="/admin/structures/products/{$page.params.sid}/form?id={product.id}">upravit</a>
+					<a href="/sysadmin/structures/products/{$page.params.sid}/form?id={product.id}">upravit</a>
 				</td>
 				<td>
-					<a href="/admin/structures/products/{$page.params.sid}/qr?id={product.id}">qr kód</a>
+					<a href="/sysadmin/structures/products/{$page.params.sid}/qr?id={product.id}">qr kód</a>
 				</td>
 			</tr>
 		{/each}

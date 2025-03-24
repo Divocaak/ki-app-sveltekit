@@ -13,12 +13,10 @@ export async function handle({ event, resolve }) {
         event.locals.user = null;
     }
 
-    //console.log(event);
-
     const pathname = event.route.id;
     if (pathname.startsWith('/(auth)')) return resolve(event);
 
-    /* URGENT after login return on desired path */
+    /* BUG after login return on desired path */
     if (pathname.startsWith('/(protected)')) {
         if (!event.locals.user) {
             desired = event.route.id;
@@ -30,8 +28,11 @@ export async function handle({ event, resolve }) {
         if (user.isNeutral()) throw redirect(302, "/401"); // Unathorized
         if (user.isBanned() || user.isDeleted()) throw redirect(302, "/403"); // Forbidden
 
-        // Restrict access to /admin for non-admins
-        if (pathname.includes('/(admin)') && !user.isAdmin()) throw redirect(302, '/403'); // Redirect to Forbidden page
+
+        // Restrict access to /sysadmin for non-sysadmins
+        if (pathname.includes('/sysadmin') && !user.isSysAdmin()) throw redirect(302, '/403'); // Redirect to Forbidden page
+        /* TODO hook structure-admin */
+        /* TODO hook bartender */
     }
 
     return resolve(event);

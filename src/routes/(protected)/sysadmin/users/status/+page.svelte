@@ -24,7 +24,7 @@
 	}
 </script>
 
-<a href="/admin/users">zpět</a><br />
+<a href="/sysadmin/users">zpět</a><br />
 
 <h2>změnit status</h2>
 <form on:submit={handleSubmit}>

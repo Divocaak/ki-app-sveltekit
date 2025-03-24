@@ -9,7 +9,7 @@
 </script>
 
 <h2>produkty</h2>
-<a href="/admin/structures/products/{$page.params.sid}">zpět</a><br />
+<a href="/sysadmin/structures/products/{$page.params.sid}">zpět</a><br />
 
 <AdminForm
 	schemaPath="/schemas/admin/product.json"

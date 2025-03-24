@@ -1,18 +1,10 @@
 <script>
-	// @ts-nocheck
-	import { goto } from '$app/navigation';
-	import selected from '$lib/stores/structureStore.js';
 	export let data;
-
-	function manage(sid) {
-		selected.update(() => sid);
-		goto('/bartender/manage');
-	}
 </script>
 
-<h2>bartender</h2>
-<a href="/home">back to home</a><br />
-
+<h2>budovy</h2>
+<a href="/sysadmin">zpět</a><br />
+<a href="/sysadmin/structures/form">přidat novou</a>
 
 <table>
 	<thead>
@@ -32,7 +24,7 @@
 					<b>{structure.label}</b>
 				</td>
 				<td>
-					<button on:click={() => manage(structure.id)}>manage bills</button>
+					<a href="/sysadmin/structures/form?id={structure.id}">upravit</a>
 				</td>
 			</tr>
 		{/each}

@@ -3,9 +3,9 @@
 </script>
 
 <h2>uživatelé</h2>
-<a href="/admin">zpět</a><br />
+<a href="/sysadmin">zpět</a><br />
 
-<!-- TODO privilege assignement -->
+<!-- TODO privilege assignement for this one structure i manage -->
 <table>
 	<thead>
 		<tr>
@@ -13,10 +13,6 @@
 			<th scope="col">lname fname</th>
 			<th scope="col">email</th>
 			<th scope="col">phone</th>
-			<th scope="col">status</th>
-			<th scope="col"></th>
-			<th scope="col"></th>
-			<th scope="col"></th>
 			<th scope="col"></th>
 		</tr>
 	</thead>
@@ -37,19 +33,7 @@
 					<a href="tel:{user.phone}">{user.phone}</a>
 				</td>
 				<td>
-					<i>{user.status}</i>
-				</td>
-				<td>
-					<a href="/admin/users/form?id={user.id}">upravit</a>
-				</td>
-				<td>
-					<a href="/admin/users/status?uid={user.id}&sid={user.statusId}">status</a>
-				</td>
-				<td>
-					<a href="/admin/users/privileges?uid={user.id}&sid={user.statusId}">práva</a>
-				</td>
-				<td>
-					<a href="/admin/users/structures?uid={user.id}">přiřazení k budovám</a>
+					<a href="/sysadmin/users/privileges?uid={user.id}&sid={user.statusId}">práva</a>
 				</td>
 			</tr>
 		{/each}
