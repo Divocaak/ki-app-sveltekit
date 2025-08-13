@@ -15,6 +15,7 @@
 		{privilege.id}: <b>{privilege.label}</b> {#if privilege.structureLabel}(<i>{privilege.structureLabel}</i>){/if},&nbsp;
 	{/each})
 </p>
+<a href="/personal">Můj profil</a>
 
 <slot />
 
