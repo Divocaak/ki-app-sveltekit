@@ -8,14 +8,16 @@
 
 <h1>ki-app protected</h1>
 <p>
-	{@html user.getInfoString()}
-	<a href="/logout">logout</a>
+	logged in as {@html user.getInfoString()}
 	<br />
 	(privileges: {#each user.privileges as privilege}
-		{privilege.id}: <b>{privilege.label}</b> {#if privilege.structureLabel}(<i>{privilege.structureLabel}</i>){/if},&nbsp;
+		{privilege.id}: <b>{privilege.label}</b>
+		{#if privilege.structureLabel}(<i>{privilege.structureLabel}</i>){/if},&nbsp;
 	{/each})
 </p>
-<a href="/personal">Můj profil</a>
+<!-- TODO refresh to get current credits/privilegies/roles -->
+<a href="/logout">logout</a><br />
+<a href="/personal">Můj profil</a><br /><br />
 
 <slot />
 

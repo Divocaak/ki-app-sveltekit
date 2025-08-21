@@ -12,23 +12,25 @@ export class User {
     lName = "";
     status = null;
     privileges = [];
+    credits = 0;
 
-    constructor({ id, email, phone, fName = "", lName = "", status = null, privileges = [] }) {
-        Object.assign(this, { id, email, phone, fName, lName, status, privileges });
+    constructor({ id, email, phone, fName = "", lName = "", status = null, privileges = [], credits = 0 }) {
+        Object.assign(this, { id, email, phone, fName, lName, status, privileges, credits });
     }
 
     static fromJSON(json) {
         return new User({
             id: json.id,
             email: json.email,
-            fName: json.fName,
-            lName: json.lName,
+            fName: json.fName ?? json.f_name,
+            lName: json.lName ?? json.l_name,
             phone: json.phone,
-            status: new Status({
+            status: json.status ? new Status({
                 id: json.status.id,
                 label: json.status.label
-            }),
-            privileges: User.createPrivileges(json.privileges)
+            }) : null,
+            privileges: json.privileges ? User.createPrivileges(json.privileges) : [],
+            credits: json.credits
         });
     }
 
@@ -41,8 +43,8 @@ export class User {
     isBartender() { return this.#checkForPrivilege(PUBLIC_PRIVILEGE_ID_BARTENDER); }
     #checkForPrivilege(privilegeId) { return this.privileges.some((privilege) => privilege.id === parseInt(privilegeId)); }
 
-    getStructuresWhereStructureAdmin() { return this.#getStructuresWherePrivileged(PUBLIC_PRIVILEGE_ID_STRUCTURE_ADMIN)};
-    getStructuresWhereBartender() { return this.#getStructuresWherePrivileged(PUBLIC_PRIVILEGE_ID_BARTENDER)};
+    getStructuresWhereStructureAdmin() { return this.#getStructuresWherePrivileged(PUBLIC_PRIVILEGE_ID_STRUCTURE_ADMIN) };
+    getStructuresWhereBartender() { return this.#getStructuresWherePrivileged(PUBLIC_PRIVILEGE_ID_BARTENDER) };
     #getStructuresWherePrivileged(privilegeId) {
         return this.privileges
             .filter((privilege) => privilege.privilegeId === parseInt(privilegeId))
@@ -55,5 +57,8 @@ export class User {
     isDeleted() { return this.#checkForStatus(PUBLIC_STATUS_ID_DELETED); }
     #checkForStatus(statusId) { return parseInt(this.status.id) === parseInt(statusId); }
 
-    getInfoString() { return `logged in as <b>${this.lName} ${this.fName}</b> (${this.email}, ${this.phone}, id: <i>${this.id}</i>)`; }
+    getInfoString() {
+        return `<b>${this.lName} ${this.fName}</b> (${this.email}, ${this.phone}, id: <i>${this.id}</i>)<br>
+            Galaktických kreditů: <b>${this.credits} GK</b>`;
+    }
 }

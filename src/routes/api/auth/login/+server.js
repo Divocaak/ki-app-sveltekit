@@ -9,7 +9,7 @@ export async function POST({ request, cookies }) {
     const { email, password } = await request.json();
 
     const [rows] = await pool.query(`
-        SELECT u.id, u.email, u.pass_hash, u.phone, u.f_name, u.l_name, s.id AS statusId, s.label FROM user_status us
+        SELECT u.id, u.email, u.pass_hash, u.phone, u.f_name, u.l_name, u.credits, s.id AS statusId, s.label FROM user_status us
         INNER JOIN user u ON us.id_user=u.id
         INNER JOIN status s ON us.id_status=s.id
         WHERE u.email = ?;`,
@@ -32,7 +32,8 @@ export async function POST({ request, cookies }) {
         status: new Status({
             id: rows[0].statusId,
             label: rows[0].label
-        })
+        }),
+        credits: rows[0].credits
     });
 
     const [prows] = await pool.query(`
