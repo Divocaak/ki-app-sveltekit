@@ -4,6 +4,8 @@ import { pool } from "$lib/db/mysql.ts";
 export async function POST({ request }) {
 
     const data = await request.json();
+    console.log(data);
+    const recordToPay = data.recordsToSend;
 
     const formatDate = (isoDate) => {
         const date = new Date(isoDate);
@@ -16,14 +18,47 @@ export async function POST({ request }) {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     };
 
-    const placeholders = data.map(() => "(?, ?, ?)").join(", ");
-    const values = data.flatMap(([id_user, id_product, created]) => [
+    const placeholders = recordToPay.map(() => "(?, ?, ?)").join(", ");
+    const values = recordToPay.flatMap(([id_user, id_product, created]) => [
         id_user,
         id_product,
         formatDate(created)
     ]);
 
-    const [rows] = await pool.query(`UPDATE transaction SET resolved = NOW() WHERE (id_user, id_product, created) IN (${placeholders})`, values);
+    const connection = await pool.getConnection();
+    try {
+        await connection.beginTransaction();
 
-    return new Response(JSON.stringify("rows"));
+        if (data.method === "credits") {
+            const [userRows] = await connection.query(
+                `SELECT credits FROM user WHERE id = ? FOR UPDATE`,
+                [data.uid]
+            );
+
+            if (userRows.length === 0) throw new Error("User not found");
+            if (userRows[0].credits < data.sum) throw new Error("Not enough credits");
+
+            await connection.query(
+                `UPDATE user SET credits = credits - ? WHERE id = ?`,
+                [data.sum, data.uid]
+            );
+        }
+
+        const placeholders = values.map(() => "(?, ?, ?)").join(", ");
+        await connection.query(`
+            UPDATE transaction 
+            SET resolved = NOW() 
+            WHERE (id_user, id_product, created) IN (${placeholders})`,
+            values.flat()
+        );
+
+        await connection.commit();
+
+    } catch (err) {
+        await connection.rollback();
+        console.error("Transaction failed:", err.message);
+        throw err;
+    } finally {
+        connection.release();
+    }
 }

@@ -13,7 +13,7 @@ export async function handle({ event, resolve }) {
         event.locals.user = null;
     }
 
-    const pathname = event.route.id;
+    const pathname = event.route?.id ?? event.url.pathname;
     if (pathname.startsWith('/(auth)')) return resolve(event);
 
     /* NOTE after login return on desired path */
