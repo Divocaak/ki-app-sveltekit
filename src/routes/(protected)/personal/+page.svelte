@@ -1,7 +1,8 @@
 <script>
-	import QRCode from '@castlenine/svelte-qrcode';
-    // @ts-nocheck
+	// @ts-nocheck
 	import { User } from '$lib/classes/user.js';
+	import { page } from '$app/stores';
+	import QRCode from '@castlenine/svelte-qrcode';
 
 	export let data;
 	const user = User.fromJSON(data.user);
@@ -12,5 +13,5 @@
 
 <p>Můj QR kód:</p>
 <div style="width: 10%; height: 10%;">
-	<QRCode data="/social?uid={user.id}" isJoin isResponsive />
+	<QRCode data="{$page.url.origin}/social?uid={user.id}" isJoin isResponsive />
 </div>
