@@ -12,6 +12,7 @@
 			<th scope="col">lname fname</th>
 			<th scope="col">email</th>
 			<th scope="col">phone</th>
+			<th scope="col">kredity</th>
 			<th scope="col">status</th>
 			<th scope="col"></th>
 			<th scope="col"></th>
@@ -34,6 +35,9 @@
 				</td>
 				<td>
 					<a href="tel:{user.phone}">{user.phone}</a>
+				</td>
+				<td>
+					{user.credits}
 				</td>
 				<td>
 					<i>{user.status}</i>

@@ -3,6 +3,8 @@ import { Privilege } from "$lib/classes/privilege";
 import { Status } from "$lib/classes/status";
 import { PUBLIC_PRIVILEGE_ID_SYS_ADMIN, PUBLIC_PRIVILEGE_ID_STRUCTURE_ADMIN, PUBLIC_PRIVILEGE_ID_BARTENDER, PUBLIC_STATUS_ID_APPROVED, PUBLIC_STATUS_ID_BANNED, PUBLIC_STATUS_ID_DELETED, PUBLIC_STATUS_ID_NEUTRAL } from "$env/static/public";
 
+
+
 export class User {
 
     id;

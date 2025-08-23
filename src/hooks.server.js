@@ -20,7 +20,6 @@ export async function handle({ event, resolve }) {
     if (pathname.startsWith('/(protected)')) {
         if (!event.locals.user) {
             desired = event.route.id;
-            console.log(desired);
             throw redirect(302, '/login');
         }
 

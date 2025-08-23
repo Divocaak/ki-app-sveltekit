@@ -4,7 +4,6 @@ import { pool } from "$lib/db/mysql.ts";
 export async function POST({ request }) {
 
     const data = await request.json();
-    console.log(data);
     const recordToPay = data.recordsToSend;
 
     const formatDate = (isoDate) => {

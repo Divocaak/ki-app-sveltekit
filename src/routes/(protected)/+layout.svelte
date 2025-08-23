@@ -3,7 +3,22 @@
 	import { User } from '$lib/classes/user.js';
 
 	export let data;
-	const user = User.fromJSON(data.user);
+	let user = User.fromJSON(data.user);
+
+	async function refresh() {
+		try {
+			const res = await fetch('/api/auth/refresh');
+			if (!res.ok) {
+				alert('Session expired or user not found.');
+				return;
+			}
+			const { user: freshUser } = await res.json();
+			user = User.fromJSON(freshUser);
+		} catch (err) {
+			console.error(err);
+			alert('Failed to refresh user data.');
+		}
+	}
 </script>
 
 <h1>ki-app protected</h1>
@@ -15,11 +30,11 @@
 		{#if privilege.structureLabel}(<i>{privilege.structureLabel}</i>){/if},&nbsp;
 	{/each})
 </p>
-<!-- TODO refresh to get current credits/privilegies/roles -->
+<button on:click={refresh}>refresh</button>
 <a href="/logout">logout</a><br />
 <a href="/personal">Můj profil</a><br /><br />
 
-<slot />
+<slot/>
 
 <style>
 	:global(table) {
