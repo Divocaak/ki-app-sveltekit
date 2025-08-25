@@ -1,12 +1,13 @@
 <script>
-    
-    // @ts-nocheck
+	// @ts-nocheck
 	import selected from '$lib/stores/structureStore.js';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 
 	let bills = [];
 	let selectedData;
+	let method = 'credits';
+
 	onMount(async () => {
 		selected.subscribe((data) => (selectedData = data));
 
@@ -23,16 +24,23 @@
 
 	let selectedRecords = new Set();
 	let actualSum = 0;
+	let selectedUid = null;
 	function toggleSelection(event) {
-		const key = JSON.stringify(event.target.name.split('_'));
-		const price = parseInt(event.target.dataset.price);
+		const checkbox = event.target;
+		const [uid, pid, created] = checkbox.name.split('_');
+		const billKey = `${uid}_${pid}_${created}`;
+		const price = parseInt(checkbox.dataset.price);
 
-		if (event.target.checked) {
-			selectedRecords.add(key);
+		if (checkbox.checked) {
+			if (!selectedUid) selectedUid = parseInt(uid);
+
+			selectedRecords.add(billKey);
 			actualSum += price;
 		} else {
-			selectedRecords.delete(key);
+			selectedRecords.delete(billKey);
 			actualSum -= price;
+
+			if (selectedRecords.size === 0) selectedUid = null;
 		}
 	}
 
@@ -45,7 +53,7 @@
 			const response = await fetch('/api/bartender/setPaid', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(recordsToSend)
+				body: JSON.stringify({ recordsToSend, method, sum: actualSum, uid: selectedUid })
 			});
 
 			if (response.ok) {
@@ -55,11 +63,11 @@
 				alert('Error');
 			}
 		} catch (error) {
-            console.error(error);
+			console.error(error);
 			alert('Failed to connect to the server');
 		}
 
-        goto("/bartender");
+		goto('/bartender');
 	}
 </script>
 
@@ -70,7 +78,13 @@
 {#if !selectedData}select structure you want to manage<br />{/if}
 {#if bills.length > 0}
 	<form on:submit={handleSubmit}>
-		{#if actualSum > 0}<button type="submit">mark as paid</button>{/if}
+		{#if actualSum > 0}
+			<input type="radio" id="credits" name="method" value="credits" bind:group={method} />
+			<label for="credits">Kredity</label><br />
+			<input type="radio" id="money" name="method" value="money" bind:group={method} />
+			<label for="money">Hotovst</label><br />
+			<button type="submit">označit jako zaplacené</button>
+		{/if}
 		<table>
 			<thead>
 				<tr>
@@ -101,12 +115,15 @@
 							<b>{bill.price}</b>
 						</td>
 						<td>
-							<input
-								type="checkbox"
-								name="{bill.uid}_{bill.pid}_{bill.created}"
-								data-price={bill.price}
-								on:change={toggleSelection}
-							/>
+							{#if selectedUid === null || selectedUid === bill.uid}
+								<input
+									type="checkbox"
+									name="{bill.uid}_{bill.pid}_{bill.created}"
+									data-price={bill.price}
+									checked={selectedRecords.has(`${bill.uid}_${bill.pid}_${bill.created}`)}
+									on:change={toggleSelection}
+								/>
+							{/if}
 						</td>
 					</tr>
 				{/each}
