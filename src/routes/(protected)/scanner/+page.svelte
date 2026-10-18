@@ -69,7 +69,6 @@
 <a href="/home">back to home</a><br />
 
 <main>
-	<button on:click={test}>tst</button>
 	{#if scanning}
 		<button on:click={stop}>stop</button>
 	{:else}
@@ -86,6 +85,7 @@
 		justify-content: center;
 		gap: 20px;
 	}
+
 	reader {
 		width: 50%;
 		min-height: 500px;

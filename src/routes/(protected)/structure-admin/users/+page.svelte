@@ -12,6 +12,7 @@
 			<th scope="col">lname fname</th>
 			<th scope="col">email</th>
 			<th scope="col">phone</th>
+			<th scope="col">kredity</th>
 			<th scope="col"></th>
 		</tr>
 	</thead>
@@ -30,6 +31,9 @@
 				</td>
 				<td>
 					<a href="tel:{user.phone}">{user.phone}</a>
+				</td>
+				<td>
+					{user.credits}
 				</td>
 				<td>
 					<a href="/structure-admin/users/privileges?uid={user.id}&sid={data.sid}">práva</a>

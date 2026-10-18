@@ -13,14 +13,13 @@ export async function handle({ event, resolve }) {
         event.locals.user = null;
     }
 
-    const pathname = event.route.id;
+    const pathname = event.route?.id ?? event.url.pathname;
     if (pathname.startsWith('/(auth)')) return resolve(event);
 
     /* NOTE after login return on desired path */
     if (pathname.startsWith('/(protected)')) {
         if (!event.locals.user) {
             desired = event.route.id;
-            console.log(desired);
             throw redirect(302, '/login');
         }
 
